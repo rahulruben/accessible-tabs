@@ -3,7 +3,7 @@ const panels = tabExample.querySelectorAll('[role="tabpanel"]');
 const tabBtns = tabExample.querySelectorAll('[role="tab"]');
 
 const getActiveTabButton = () => {
-  return [...tabBtns].find(tab => tab.getAttribute('aria-selected'));
+  return [...tabBtns].find(tab => tab.getAttribute('aria-selected') == "true");
 }
 
 const setActiveTabButton = (tabButton, state) => {
@@ -11,11 +11,10 @@ const setActiveTabButton = (tabButton, state) => {
 }
 
 const setInitialTabState = () => {
-  tabBtns[0].setAttribute('aria-selected', true);
   panels[0].setAttribute('active', '');
 }
 
-const addListeners = () => {
+const addEventListeners = () => {
   tabBtns.forEach(tab => tab.addEventListener('click', e => {
     const panelId = tab.getAttribute('aria-controls');
     [...panels].map(panel => {
@@ -25,7 +24,6 @@ const addListeners = () => {
         panel.removeAttribute('active');
       }
     })
-    console.log(getActiveTabButton())
     setActiveTabButton(getActiveTabButton(), false);
     setActiveTabButton(e.target, true);
   }))
@@ -33,4 +31,4 @@ const addListeners = () => {
 }
 
 setInitialTabState();
-addListeners();
+addEventListeners();
